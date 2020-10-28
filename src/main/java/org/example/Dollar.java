@@ -13,10 +13,10 @@ public class Dollar {
         return new Dollar(amount * multiplier);
     }
 
-    /*@Override
+    @Override
     public boolean equals(Object o) {
         Dollar dollar = (Dollar) o;
         return amount == dollar.amount;
-    }*/
+    }
 
 }
