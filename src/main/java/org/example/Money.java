@@ -2,17 +2,19 @@ package org.example;
 
 public abstract class Money {
     protected int amount;
+    protected String currency;
 
-    public Money(int amount) {
+    protected Money(int amount, String currency) {
         this.amount = amount;
+        this.currency = currency;
     }
 
     public static Money franc(int amount) {
-        return new Franc(amount);
+        return new Franc(amount, "CHF");
     }
 
     public static Money dollar(int amount) {
-        return new Dollar(amount);
+        return new Dollar(amount, "USD");
     }
 
     abstract Money times(int multiplier);
@@ -22,5 +24,9 @@ public abstract class Money {
         Money money = (Money) o;
         return amount == money.amount
                 && getClass().equals(money.getClass());
+    }
+
+    public String currency() {
+        return currency;
     }
 }
