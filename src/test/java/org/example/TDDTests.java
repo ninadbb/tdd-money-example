@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class DollarTest {
+public class TDDTests {
 
     @Test
     public void testMultiplication(){
