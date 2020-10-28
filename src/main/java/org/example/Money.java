@@ -1,6 +1,6 @@
 package org.example;
 
-public abstract class Money {
+public class Money {
     protected int amount;
     protected String currency;
 
@@ -17,16 +17,22 @@ public abstract class Money {
         return new Dollar(amount, "USD");
     }
 
-    abstract Money times(int multiplier);
+    public Money times(int multiplier) {
+        return new Money(amount * multiplier, currency);
+    }
 
     @Override
     public boolean equals(Object o) {
         Money money = (Money) o;
         return amount == money.amount
-                && getClass().equals(money.getClass());
+                && currency().equals(money.currency());
     }
 
     public String currency() {
         return currency;
+    }
+
+    public String toString() {
+        return amount + " " + currency;
     }
 }
