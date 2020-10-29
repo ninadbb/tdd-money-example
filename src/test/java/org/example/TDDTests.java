@@ -7,7 +7,7 @@ import static org.junit.Assert.*;
 public class TDDTests {
 
     @Test
-    public void testMultiplication(){
+    public void testMultiplication() {
         Money five = Money.dollar(5);
         assertEquals(Money.dollar(10), five.times(2));
         assertEquals(Money.dollar(15), five.times(3));
@@ -28,24 +28,24 @@ public class TDDTests {
 
     @Test
     public void testSimpleAddition() {
-        Money five= Money.dollar(5);
-        Expression sum= five.plus(five);
-        Bank bank= new Bank();
-        Money reduced= bank.reduce(sum, "USD");
+        Money five = Money.dollar(5);
+        Expression sum = five.plus(five);
+        Bank bank = new Bank();
+        Money reduced = bank.reduce(sum, "USD");
         assertEquals(Money.dollar(10), reduced);
     }
 
     @Test
     public void testPlusReturnsSum() {
-        Money five= Money.dollar(5);
-        Expression result= five.plus(five);
-        Sum sum= (Sum) result;
+        Money five = Money.dollar(5);
+        Expression result = five.plus(five);
+        Sum sum = (Sum) result;
         assertEquals(five, sum.augend);
         assertEquals(five, sum.addend);
     }
 
     @Test
-    public void testReduceSum(){
+    public void testReduceSum() {
         Expression sum = new Sum(Money.dollar(3), Money.dollar(4));
         Bank bank = new Bank();
         final Money result = bank.reduce(sum, "USD");
@@ -53,9 +53,24 @@ public class TDDTests {
     }
 
     @Test
-    public void testReduceMoney(){
+    public void testReduceMoney() {
         Bank bank = new Bank();
         final Money result = bank.reduce(Money.dollar(1), "USD");
         assertEquals(Money.dollar(1), result);
     }
+
+    @Test
+    public void testReduceMoneyDifferentCurrency() {
+        Bank bank = new Bank();
+        bank.addRate("CHF", "USD", 2);
+        final Money result = bank.reduce(Money.franc(2), "USD");
+        assertEquals(Money.dollar(1), result);
+    }
+
+    @Test
+    public void testIdentityRate() {
+        assertEquals(1, new Bank().rate("USD", "USD"));
+    }
+
+
 }
